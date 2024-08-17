@@ -171,7 +171,7 @@ cid::CResult cid::Socket::RecvAll(void* dest_, int numBytes_)
 		int bytesRemaining = numBytes_ - totalReceived;
 		int bytesReceived = 0;
 		char* bufferOffset = (char*)dest_ + totalReceived;
-		CResult result = Send(bufferOffset, bytesRemaining, bytesReceived);
+		CResult result = Recv(bufferOffset, bytesRemaining, bytesReceived);
 		if (result != CResult::C_Success)
 		{
 			return CResult::C_NotYetImplemented;

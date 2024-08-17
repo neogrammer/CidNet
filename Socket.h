@@ -27,6 +27,9 @@ namespace cid
 		CResult Accept(Socket& outSocket);
 		CResult Connect(IPEndpoint endpoint_);
 		CResult Recv(void* dest_, int numBytes_, int& bytesReceived_);
+		CResult RecvAll(void* dest_, int numBytes_);
+		CResult SendAll(void* data, int numBytes);
+
 		CResult Send(void* data, int numBytes, int& bytesSent);
 	};
 }

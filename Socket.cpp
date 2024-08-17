@@ -163,6 +163,43 @@ cid::CResult cid::Socket::Recv(void* dest_, int numBytes_, int& bytesReceived_)
 	return CResult::C_Success;
 }
 
+cid::CResult cid::Socket::RecvAll(void* dest_, int numBytes_)
+{
+	int totalReceived = 0;
+	while (totalReceived < numBytes_)
+	{
+		int bytesRemaining = numBytes_ - totalReceived;
+		int bytesReceived = 0;
+		char* bufferOffset = (char*)dest_ + totalReceived;
+		CResult result = Send(bufferOffset, bytesRemaining, bytesReceived);
+		if (result != CResult::C_Success)
+		{
+			return CResult::C_NotYetImplemented;
+		}
+		totalReceived += bytesReceived;
+	}
+
+	return CResult::C_Success;
+}
+
+cid::CResult cid::Socket::SendAll(void* data, int numBytes)
+{
+	int totalSent = 0;
+	while (totalSent < numBytes)
+	{
+		int bytesRemaining = numBytes - totalSent;
+		int bytesSent = 0;
+		char* bufferOffset = (char*)data + totalSent;
+		CResult result = Send(bufferOffset, bytesRemaining, bytesSent);
+		if (result != CResult::C_Success)
+		{
+			return CResult::C_NotYetImplemented;
+		}
+		totalSent += bytesSent;
+	}
+	return CResult::C_Success;
+}
+
 cid::CResult cid::Socket::Send(void* data, int numBytes, int& bytesSent)
 {
 	//int totalSent = 0;

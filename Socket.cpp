@@ -1,6 +1,7 @@
 #include "Socket.h"
 #include <assert.h>
 #include <iostream>
+#include <SFML/Window/Keyboard.hpp>
 
 cid::CResult cid::Socket::SetSocketOption(SocketOption option_, BOOL value_)
 {
@@ -168,6 +169,11 @@ cid::CResult cid::Socket::RecvAll(void* dest_, int numBytes_)
 	int totalReceived = 0;
 	while (totalReceived < numBytes_)
 	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			return CResult::C_NotYetImplemented;
+		}
+
 		int bytesRemaining = numBytes_ - totalReceived;
 		int bytesReceived = 0;
 		char* bufferOffset = (char*)dest_ + totalReceived;
@@ -187,6 +193,10 @@ cid::CResult cid::Socket::SendAll(void* data, int numBytes)
 	int totalSent = 0;
 	while (totalSent < numBytes)
 	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			return CResult::C_NotYetImplemented;
+		}
 		int bytesRemaining = numBytes - totalSent;
 		int bytesSent = 0;
 		char* bufferOffset = (char*)data + totalSent;
